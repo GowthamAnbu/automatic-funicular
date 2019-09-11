@@ -1,2 +1,12 @@
-<h1>dashboard works!</h1>
-<app-generic></app-generic>
+<mat-card *ngFor="let anime of animes" (click)="goto(anime)" style="cursor: pointer">
+  <mat-card-header>
+    <mat-card-title>{{anime.title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  <img [src]="anime.image_url" alt="anime's image">
+    <!-- {{anime.image_url}} -->
+  </mat-card-content>
+  <mat-card-actions>
+    {{anime.score}} {{anime.members}}
+  </mat-card-actions>
+</mat-card>

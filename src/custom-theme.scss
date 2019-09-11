@@ -1,7 +1,7 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
+
+// default prebuilt theme is used for intial built this can be remove later
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -9,20 +9,39 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+
+/* ----- Unicorn Light Theme ----- */
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$automatic-funicular-primary: mat-palette($mat-indigo);
-$automatic-funicular-accent: mat-palette($mat-pink, A200, A100, A400);
+$light-primary: mat-palette($mat-deep-purple);
+$light-accent:  mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$automatic-funicular-warn: mat-palette($mat-red);
+$light-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$automatic-funicular-theme: mat-light-theme($automatic-funicular-primary, $automatic-funicular-accent, $automatic-funicular-warn);
+$unicorn-light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($automatic-funicular-theme);
+.unicorn-light-theme{
+  @include angular-material-theme($unicorn-light-theme);
+}
 
+/* ----- Unicorn Dark Theme ----- */
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$unicorn-dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// Include the alternative theme styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.unicorn-dark-theme {
+  @include angular-material-theme($unicorn-dark-theme);
+}
