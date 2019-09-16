@@ -1,0 +1,52 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Angular progressive web app",
+      "author": "That boy",
+      "gender": "m",
+      "tags": [
+        "Angular",
+        "PWA",
+        "Progressive Web App",
+        "Web App"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Long App GONE",
+      "author": "Genius Girl",
+      "gender": "f",
+      "tags": [
+        "Angular",
+        "SSR",
+        "Server Side Rendering",
+        "Hybrid App"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Progresser with Aggregator",
+      "author": "What and Who ?",
+      "gender": "m",
+      "tags": [
+        "Angular",
+        "Future",
+        "Best Posts",
+        "Top"
+      ]
+    },
+    {
+      "title": "ThaT OnE BOoK",
+      "author": "YeP ThAt CreEpY dUdE",
+      "gender": "m",
+      "tags": [
+        "Angular",
+        "Quality Assurance",
+        "Tester",
+        "TEST"
+      ],
+      "id": 4
+    }
+  ]
+}
