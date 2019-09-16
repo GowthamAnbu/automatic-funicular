@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { AnimeDetailsComponent } from './containers/anime-details/anime-details.component';
 import { PostsComponent } from './containers/posts/posts.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'posts',
     component: PostsComponent
+  },
+  {
+    path: 'posts/:id',
+    component: PostFormComponent
   }
 ];
 

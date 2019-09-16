@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AnimeDetailsComponent } from './containers/anime-details/anime-details.component';
 import { PostsComponent } from './containers/posts/posts.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PostsComponent } from './containers/posts/posts.component';
     DashboardComponent,
     GenericComponent,
     AnimeDetailsComponent,
-    PostsComponent
+    PostsComponent,
+    PostFormComponent
   ],
   imports: [
     BrowserModule,
