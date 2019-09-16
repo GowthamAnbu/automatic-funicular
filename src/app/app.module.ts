@@ -9,13 +9,15 @@ import { GenericComponent } from './containers/generic.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AnimeDetailsComponent } from './containers/anime-details/anime-details.component';
+import { PostsComponent } from './containers/posts/posts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     GenericComponent,
-    AnimeDetailsComponent
+    AnimeDetailsComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
