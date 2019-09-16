@@ -1,10 +1,9 @@
-<mat-card *ngFor="let anime of animes" (click)="goto(anime)" style="cursor: pointer">
+<mat-card *ngFor="let anime of animes" (click)="goto(anime)" class="mat-elevation-z8 matt">
   <mat-card-header>
     <mat-card-title>{{anime.title}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-  <img [src]="anime.image_url" alt="anime's image">
-    <!-- {{anime.image_url}} -->
+  <img [src]="anime.image_url" alt="anime's image" mat-card-image>
   </mat-card-content>
   <mat-card-actions>
     {{anime.score}} {{anime.members}}
