@@ -1,23 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Post } from '../../../models/post';
 
 @Component({
   selector: 'app-post-count',
   template: `
     <div>
-    count
+    count {{postCount}}
     </div>
   `,
   styles: [`
 
   `]
 })
-export class PostCountComponent implements OnInit {
+export class PostCountComponent {
 
   @Input()
-  post: Post;
+  posts: Post[];
 
-  ngOnInit() {
-    console.log(this.post);
+  get postCount() {
+    return this.posts ? this.posts.length : null;
   }
 }
