@@ -37,6 +37,7 @@
       ]
     },
     {
+      "id": 4,
       "title": "ThaT OnE BOoK",
       "author": "YeP ThAt CreEpY dUdE",
       "gender": "m",
@@ -45,8 +46,7 @@
         "Quality Assurance",
         "Tester",
         "TEST"
-      ],
-      "id": 4
+      ]
     }
   ]
 }

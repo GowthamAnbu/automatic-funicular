@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Post } from 'src/app/models/post';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Post } from 'src/app/template-driven/models/post';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-dashboard',
   template: `
-    <app-post-count [posts]="posts"></app-post-count>
-    <app-post *ngFor="let post of posts" [post]="post"></app-post>
+  <app-post-count [posts]="posts"></app-post-count>
+  <button mat-button (click)="mock()">Mock</button>
+  <app-post *ngFor="let p of posts" [post]="p" (postDeleted)="delete($event)"></app-post>
   `,
   styles: [`
   /* :host {
@@ -17,19 +16,47 @@ import { HttpClient } from '@angular/common/http';
     grid-auto-rows: 100px;
     grid-column-gap: 100px;
   } */
-  `]
+  `],
 })
 export class PostDashboardComponent implements OnInit {
 
   posts: Post[];
 
   constructor(
-    private Http: HttpClient
+    private postService: PostService
   ) {}
 
   ngOnInit(): void {
-    this.Http.get<Post[]>(`${environment.apiUrl}posts`).subscribe(p => {
+    this.postService.getPosts().subscribe(p => {
       this.posts = p;
     });
+  }
+
+  delete(event: Post) {
+    // console.log(event);
+    const index = this.posts.findIndex(p => p.id === event.id);
+    this.posts.splice(index, 1);
+    // this.posts = [...this.posts];
+    // console.log(this.posts);
+    // call Mocked API here
+  }
+
+  mock() {
+    const mockk = {
+      id: 100,
+      title: '100',
+      author: '100',
+      gender: '100',
+      tags: [
+        '100',
+        '100',
+        '100',
+        '100p'
+      ]
+    };
+    // this.posts[0].title = 'mocked';
+    // this.posts.push(mockk);
+    this.posts[this.posts.length] = mockk;
+    // this.posts = [...this.posts];
   }
 }

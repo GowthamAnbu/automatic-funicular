@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Post } from '../../../models/post';
+import { Component, Input, ChangeDetectionStrategy, DoCheck } from '@angular/core';
+import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-post-count',
@@ -10,14 +10,19 @@ import { Post } from '../../../models/post';
   `,
   styles: [`
 
-  `]
+  `],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostCountComponent {
+export class PostCountComponent implements DoCheck {
 
   @Input()
   posts: Post[];
 
   get postCount() {
     return this.posts ? this.posts.length : null;
+  }
+
+  ngDoCheck(): void {
+    console.log(this.posts);
   }
 }
