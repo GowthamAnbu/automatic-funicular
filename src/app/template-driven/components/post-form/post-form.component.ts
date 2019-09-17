@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
-import { Post } from 'src/app/models/posts';
+import { Post } from 'src/app/models/post';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/models/posts';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-post',
@@ -21,7 +21,7 @@ import { Post } from 'src/app/models/posts';
 })
 export class PostsComponent implements OnInit{
 
-  posts$: Observable<Post> = this.Http.get<Post>(`${environment.apiUrl}posts`);
+  posts$: Observable<Post[]> = this.Http.get<Post[]>(`${environment.apiUrl}posts`);
 
   constructor(
     private Http: HttpClient

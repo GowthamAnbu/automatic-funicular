@@ -5,19 +5,18 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
+  template: `
+    <div>
+      Dashboard works
+    </div>
+  `,
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
-  animes: any;
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    this.http.get('https://api.jikan.moe/v3/top/anime/1/tv')
-    .subscribe((r: any) => {
-      this.animes = r.top;
-    });
     const mock = {
       title: '5 ?',
       author: 'That weird guy',
@@ -41,7 +40,4 @@ export class DashboardComponent implements OnInit {
     // this.http.delete('http://localhost:3000/posts/7').subscribe(console.log);
   }
 
-  goto({mal_id: id}) {
-    this.router.navigateByUrl(`anime-details/${id}`);
-  }
 }

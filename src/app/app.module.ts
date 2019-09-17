@@ -9,8 +9,7 @@ import { GenericComponent } from './containers/generic.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AnimeDetailsComponent } from './containers/anime-details/anime-details.component';
-import { PostsComponent } from './containers/posts/posts.component';
-import { PostFormComponent } from './components/post-form/post-form.component';
+import { TemplateDrivenModule } from './template-driven/template-driven.module';
 
 @NgModule({
   declarations: [
@@ -18,12 +17,11 @@ import { PostFormComponent } from './components/post-form/post-form.component';
     DashboardComponent,
     GenericComponent,
     AnimeDetailsComponent,
-    PostsComponent,
-    PostFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    TemplateDrivenModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule
