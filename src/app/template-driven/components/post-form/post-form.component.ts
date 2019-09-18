@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { Post } from 'src/app/template-driven/models/post';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -23,7 +23,6 @@ export class PostFormComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(
       switchMap(param => this.http.get(`${environment.apiUrl}posts/${param.id}`)),
-      // tap(console.log),
-    ).subscribe((postDetail: Post) => this.post = postDetail);
+    ).subscribe((post: Post) => this.post = post);
   }
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
   template: `
   <div class="space">
-    <input type="text" [value]="post.title" (input)="onNameChange(name.value)" #name *ngIf="editing" (keyup.enter)="toggleEdit()"/>
+    <input type="text" [value]="post.title" (input)="onNameChange(name.value)" #name *ngIf="editing" (keyup.enter)="toggleEdit()" (keyup.esc)="reset()"/>
     <button mat-raised-button [textContent]="post?.title" (click)="goto(post?.id)" [color]="'primary'" *ngIf="!editing"></button>
     <button mat-button (click)="toggleEdit()">{{editing ? 'Done' : 'Edit'}}</button>
     <button mat-mini-fab><mat-icon [color]="'primary'" (click)="delete(post)">delete</mat-icon></button>
@@ -34,7 +35,10 @@ export class PostsComponent implements OnInit, OnChanges {
 
   editing = false;
 
+  backUpForEscaping: Post;
+
   constructor(
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -47,11 +51,12 @@ export class PostsComponent implements OnInit, OnChanges {
     }
   }
 
-  goto(path: string) {
-    console.log(path);
+  goto(id: number) {
+    this.router.navigate(['/posts', id]);
   }
 
   toggleEdit() {
+    this.backUpForEscaping = this.post;
     if (this.editing) {
       this.postupdated.emit(this.post);
     }
@@ -66,4 +71,9 @@ export class PostsComponent implements OnInit, OnChanges {
     this.post = { ...this.post, title };
   }
 
+  // * resetting simplifies dumb component when reusing
+  reset() {
+    this.post = this.backUpForEscaping;
+    this.editing = false;
+  }
 }
