@@ -6,7 +6,6 @@ import { PostService } from '../../services/post.service';
   selector: 'app-dashboard',
   template: `
   <app-post-count [posts]="posts"></app-post-count>
-  <button mat-button (click)="mock()">Mock</button>
   <app-post *ngFor="let p of posts" [post]="p" (postDeleted)="delete($event)"></app-post>
   `,
   styles: [`
@@ -27,36 +26,13 @@ export class PostDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postService.getPosts().subscribe(p => {
-      this.posts = p;
-    });
+    this.postService.getPosts()
+      .subscribe(p => this.posts = p);
   }
 
   delete(event: Post) {
-    // console.log(event);
-    const index = this.posts.findIndex(p => p.id === event.id);
-    this.posts.splice(index, 1);
-    // this.posts = [...this.posts];
-    // console.log(this.posts);
-    // call Mocked API here
+    this.postService.deletePosts(event.id)
+      .subscribe(() => this.posts = this.posts.filter(p => p.id !== event.id));
   }
 
-  mock() {
-    const mockk = {
-      id: 100,
-      title: '100',
-      author: '100',
-      gender: '100',
-      tags: [
-        '100',
-        '100',
-        '100',
-        '100p'
-      ]
-    };
-    // this.posts[0].title = 'mocked';
-    // this.posts.push(mockk);
-    this.posts[this.posts.length] = mockk;
-    // this.posts = [...this.posts];
-  }
 }
