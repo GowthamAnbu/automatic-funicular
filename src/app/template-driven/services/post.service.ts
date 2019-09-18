@@ -19,4 +19,8 @@ export class PostService {
   deletePosts(id: number) {
     return this.http.delete<Post>(`${environment.apiUrl}posts/${id}`);
   }
+
+  updatePosts(post: Post) {
+    return this.http.put<Post>(`${environment.apiUrl}posts/${post.id}`, post);
+  }
 }

@@ -5,7 +5,9 @@ import { Post } from 'src/app/template-driven/models/post';
   selector: 'app-post',
   template: `
   <div class="space">
-    <button mat-raised-button [textContent]="post?.title" (click)="goto(post?.id)" [color]="'primary'"></button>
+    <input type="text" [value]="post.title" (input)="onNameChange(name.value)" #name *ngIf="editing" (keyup.enter)="toggleEdit()"/>
+    <button mat-raised-button [textContent]="post?.title" (click)="goto(post?.id)" [color]="'primary'" *ngIf="!editing"></button>
+    <button mat-button (click)="toggleEdit()">{{editing ? 'Done' : 'Edit'}}</button>
     <button mat-mini-fab><mat-icon [color]="'primary'" (click)="delete(post)">delete</mat-icon></button>
   </div>
   `,
@@ -25,7 +27,12 @@ export class PostsComponent implements OnInit, OnChanges {
   post: Post;
 
   @Output()
-  postDeleted: EventEmitter<Post> = new EventEmitter<Post> ();
+  postDeleted = new EventEmitter<Post> ();
+
+  @Output()
+  postupdated = new EventEmitter<Post> ();
+
+  editing = false;
 
   constructor(
   ) {}
@@ -34,15 +41,29 @@ export class PostsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
+    // * Breaking pass-by-reference by assigning object destructuring
+    if (changes.post) {
+      this.post = {...changes.post.currentValue };
+    }
   }
 
   goto(path: string) {
     console.log(path);
   }
 
+  toggleEdit() {
+    if (this.editing) {
+      this.postupdated.emit(this.post);
+    }
+    this.editing = !this.editing;
+  }
+
   delete(target: Post) {
     this.postDeleted.emit(target);
+  }
+
+  onNameChange(title: string) {
+    this.post = { ...this.post, title };
   }
 
 }
