@@ -5,48 +5,28 @@
       "title": "Angular progressive web app",
       "author": "That boy",
       "gender": "m",
-      "tags": [
-        "Angular",
-        "PWA",
-        "Progressive Web App",
-        "Web App"
-      ]
+      "tag": 0
     },
     {
       "id": 2,
       "title": "Long App GONE",
       "author": "Genius Girl",
       "gender": "f",
-      "tags": [
-        "Angular",
-        "SSR",
-        "Server Side Rendering",
-        "Hybrid App"
-      ]
+      "tag": 1
     },
     {
-      "id": 3,
       "title": "Progresser with Aggregator & codalyzer",
       "author": "What and Who ?",
+      "id": 3,
       "gender": "m",
-      "tags": [
-        "Angular",
-        "Future",
-        "Best Posts",
-        "Top"
-      ]
+      "tag": 1
     },
     {
       "id": 4,
       "title": "ThaT OnE BOoK",
       "author": "YeP ThAt CreEpY dUdE",
       "gender": "m",
-      "tags": [
-        "Angular",
-        "Quality Assurance",
-        "Tester",
-        "TEST"
-      ]
+      "tag": 3
     }
   ]
 }

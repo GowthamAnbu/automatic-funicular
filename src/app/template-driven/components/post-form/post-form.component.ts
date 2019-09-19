@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { TAGS } from '../../constants/constants';
 
 @Component({
   selector: 'app-post-form',
@@ -13,16 +10,22 @@ import { environment } from 'src/environments/environment';
 })
 export class PostFormComponent implements OnInit {
 
+  @Input()
   post: Post;
 
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient
-  ) {}
+  @Output()
+  postSubmitted = new EventEmitter<Post>();
 
-  ngOnInit(): void {
-    this.route.params.pipe(
-      switchMap(param => this.http.get(`${environment.apiUrl}posts/${param.id}`)),
-    ).subscribe((post: Post) => this.post = post);
+  // local state based on business logic which is needed by dumb components
+  tags = TAGS;
+
+  ngOnInit() {
+  }
+
+  submit(value: any, valid: boolean) {
+    // console.log(value, valid);
+    if (valid) {
+      this.postSubmitted.emit(value);
+    }
   }
 }

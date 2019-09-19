@@ -1,1 +1,32 @@
-<pre>{{ post | json }}</pre>
+<!-- <pre>{{ post | json }}</pre> -->
+<form (ngSubmit)="submit(postForm.value, postForm.valid)" #postForm="ngForm" novalidate>
+  <!-- <pre>{{ postForm.value | json }}</pre> -->
+  <div>
+    <label for="title">Title</label>
+    <input type="text" [ngModel]="post?.title" name="title" #title="ngModel" required/>
+  </div>
+  <div>
+    <label for="author">Author</label>
+    <input type="text" [ngModel]="post?.author" name="author" #author="ngModel" required/>
+  </div>
+  <div>
+    <label for="id">Id</label>
+    <input type="number" [ngModel]="post?.id" name="id" #id="ngModel" required/>
+  </div>
+  <div>
+    <label for="gender">Gender</label>
+    <input type="radio" [value]="'m'" [ngModel]="post?.gender" name="gender" #gender="ngModel" required/>
+    <input type="radio" [value]="'f'" [ngModel]="post?.gender" name="gender" #gender="ngModel" required/>
+  </div>
+  <div>
+    <label for="tag">Tags</label>
+    <!-- name attribute is used to create variable name inside the template driven form -->
+    <select name="tag" [ngModel]="post?.tag">
+      <option *ngFor="let tag of tags" [ngValue]="tag.key" [innerText]="tag.value"></option>
+    </select>
+    <!-- <select name="tags">
+      <option *ngFor="let tag of tags" [value]="tag.key" [innerText]="tag.value" [selected]="tag.key === post?.tag" ></option>
+    </select> -->
+  </div>
+  <button type="submit">submit</button>
+</form>

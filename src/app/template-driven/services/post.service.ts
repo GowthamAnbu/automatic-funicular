@@ -8,19 +8,25 @@ import { environment } from 'src/environments/environment';
 })
 export class PostService {
 
+  postUrl = `${environment.apiUrl}posts`;
+
   constructor(
     private http: HttpClient
   ) {}
 
   getPosts() {
-    return this.http.get<Post[]>(`${environment.apiUrl}posts`);
+    return this.http.get<Post[]>(this.postUrl);
+  }
+
+  getPost(id: string) {
+    return this.http.get<Post>(`${this.postUrl}/${id}`);
   }
 
   deletePosts(id: number) {
-    return this.http.delete<Post>(`${environment.apiUrl}posts/${id}`);
+    return this.http.delete<Post>(`${this.postUrl}/${id}`);
   }
 
   updatePosts(post: Post) {
-    return this.http.put<Post>(`${environment.apiUrl}posts/${post.id}`, post);
+    return this.http.put<Post>(`${this.postUrl}/${post.id}`, post);
   }
 }

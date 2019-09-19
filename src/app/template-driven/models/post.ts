@@ -3,5 +3,5 @@ export interface Post {
   title: string;
   author: string;
   gender: string;
-  tags: string[];
+  tag: number;
 }

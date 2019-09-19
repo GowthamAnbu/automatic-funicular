@@ -7,6 +7,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostCountComponent } from './components/posts-count/posts-count.component';
 import { PostDashboardComponent } from './containers/post-dashboard/post-dashboard.component';
 import { MaterialModule } from '../material/material.module';
+import { PostDetailsComponent } from './containers/post-details/post-details.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { MaterialModule } from '../material/material.module';
     PostFormComponent,
     PostCountComponent,
     PostDashboardComponent,
+    PostDetailsComponent
   ],
   imports: [
     CommonModule,

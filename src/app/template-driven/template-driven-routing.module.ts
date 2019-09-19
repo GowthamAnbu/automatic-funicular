@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostDashboardComponent } from './containers/post-dashboard/post-dashboard.component';
+import { PostDetailsComponent } from './containers/post-details/post-details.component';
 
 const ROUTES: Routes = [
   {
@@ -15,7 +16,7 @@ const ROUTES: Routes = [
   },
   {
     path: 'posts/:id',
-    component: PostFormComponent
+    component: PostDetailsComponent
   }
 ];
 
