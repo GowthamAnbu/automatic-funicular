@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AnimeDetailsComponent } from './containers/anime-details/anime-details.component';
 import { TemplateDrivenModule } from './template-driven/template-driven.module';
+import { httpInterceptors } from './interceptors';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { TemplateDrivenModule } from './template-driven/template-driven.module';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [...httpInterceptors],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
