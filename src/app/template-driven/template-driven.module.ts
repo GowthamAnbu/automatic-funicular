@@ -10,6 +10,7 @@ import { MaterialModule } from '../material/material.module';
 import { PostDetailsComponent } from './containers/post-details/post-details.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NoopInterceptor } from '../interceptors/noop-interceptor';
+import { PostCreateComponent } from './containers/post-create/post-create.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NoopInterceptor } from '../interceptors/noop-interceptor';
     PostFormComponent,
     PostCountComponent,
     PostDashboardComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    PostCreateComponent
   ],
   imports: [
     CommonModule,

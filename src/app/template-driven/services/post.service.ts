@@ -26,7 +26,11 @@ export class PostService {
     return this.http.delete<Post>(`${this.postUrl}/${id}`);
   }
 
-  updatePosts(post: Post) {
-    return this.http.put<Post>(`${this.postUrl}/${post.id}`, post);
+  updatePosts(postToUpdate: Post) {
+    return this.http.put<Post>(`${this.postUrl}/${postToUpdate.id}`, postToUpdate);
+  }
+
+  createPost(postToCreate: Post) {
+    return this.http.post<Post>(`${this.postUrl}`, postToCreate);
   }
 }

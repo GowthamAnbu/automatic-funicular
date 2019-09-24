@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
 import { PostService } from '../../services/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,7 @@ import { PostService } from '../../services/post.service';
   <div *ngFor="let post of posts">
     {{post.title}}
   </div>
+  <button mat-mini-fab (click)="goto('/creat-post')"><mat-icon>add</mat-icon></button>
   <!--debug-->
   <app-post-count [posts]="posts"></app-post-count>
   <app-post *ngFor="let p of posts" [post]="p" (postDeleted)="delete($event)" (postupdated)="update($event)"></app-post>
@@ -27,7 +29,8 @@ export class PostDashboardComponent implements OnInit {
   posts: Post[];
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +53,10 @@ export class PostDashboardComponent implements OnInit {
         return post;
       });
     });
+  }
+
+  goto(path: string) {
+    this.router.navigate([path]);
   }
 
 }
