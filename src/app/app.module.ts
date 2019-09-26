@@ -11,6 +11,7 @@ import { MaterialModule } from './material/material.module';
 import { AnimeDetailsComponent } from './containers/anime-details/anime-details.component';
 import { TemplateDrivenModule } from './template-driven/template-driven.module';
 import { httpInterceptors } from './interceptors';
+import { RxjsModule } from './rxjs/rxjs.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { httpInterceptors } from './interceptors';
     TemplateDrivenModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    RxjsModule
   ],
   providers: [...httpInterceptors],
   bootstrap: [AppComponent]
