@@ -41,7 +41,7 @@ export class MapService {
 
   relatedmovies$: Observable<number> = interval(1000)
   .pipe(
-    take(15)
+    take(2)
   );
     // .pipe(
     //   tap(() => console.log('.............')),
