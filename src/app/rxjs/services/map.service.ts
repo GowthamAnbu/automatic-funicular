@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of, from, timer, interval } from 'rxjs';
+import { of, from, timer, interval, Observable } from 'rxjs';
 import { tap, map, take } from 'rxjs/operators';
 
 @Injectable({
@@ -21,18 +21,25 @@ export class MapService {
       relatedmovies: [
         1, 2, 3, 4
       ]
+    },
+    {
+      id: 3,
+      name: 'New one',
+      relatedmovies: [
+        1, 2, 3, 4
+      ]
     }
   ];
 
 
-  movies$ = interval(5000)
+  movies$: Observable<any> = interval(5000)
     .pipe(
-      take(2),
+      take(this.movies.length),
       map(index => this.movies[index]),
       tap(m => console.log(`INCOMING - ${m.name}`)),
     );
 
-  relatedmovies$ = interval(1000)
+  relatedmovies$: Observable<number> = interval(1000)
   .pipe(
     take(15)
   );

@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService } from '../services/map.service';
 import { tap, map, mergeMap, switchMap, concatMap, exhaustMap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-basic',
@@ -14,8 +15,9 @@ export class BasicComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscribingInnerObservableLongVersion();
-    this.subscribingInnerObservableShortVersion();
+    // this.subscribingInnerObservableLongVersion();
+    this.subscribingInnerObservableLongVersionSwitchMap();
+    // this.subscribingInnerObservableShortVersion();
   }
 
   // normal map with subscribing to the inner observable - flattening - long version
@@ -30,15 +32,29 @@ export class BasicComponent implements OnInit {
     .subscribe();
   }
 
-  // mergeMap, switchMap, concatMap, exhaustMap can be used here as well since this doesn't change the context of our example.
-  subscribingInnerObservableShortVersion() {
+  subscribingInnerObservableLongVersionSwitchMap() {
+    let innerStream: Subscription;
     this.mapService.movies$.pipe(
-      mergeMap(e => this.mapService.relatedmovies$),
-      tap(ob => console.log(`...${ob}...`)),
+      tap(movie => {
+        if (innerStream) {
+          innerStream.unsubscribe();
+        }
+      }),
+      map(movie => this.mapService.relatedmovies$),
+      tap((relatedMovies) => {
+        innerStream = relatedMovies.subscribe(ob => console.log(`...${ob}...`));
+      }),
     )
     .subscribe();
   }
 
-
+  // mergeMap, switchMap, concatMap, exhaustMap can be used here as well since this doesn't change the context of our example.
+  subscribingInnerObservableShortVersion() {
+    this.mapService.movies$.pipe(
+      switchMap(e => this.mapService.relatedmovies$),
+      tap(ob => console.log(`...${ob}...`)),
+    )
+    .subscribe();
+  }
 
 }
