@@ -5,11 +5,11 @@ import { tap, map, mergeMap, switchMap, concatMap, exhaustMap, finalize } from '
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-basic',
-  templateUrl: './basic.component.html',
-  styleUrls: ['./basic.component.css']
+  selector: 'app-maps',
+  templateUrl: './maps.component.html',
+  styleUrls: ['./maps.component.css']
 })
-export class BasicComponent implements OnInit {
+export class MapsComponent implements OnInit {
 
   constructor(private mapService: MapService) {
   }

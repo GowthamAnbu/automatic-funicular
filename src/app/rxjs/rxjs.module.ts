@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { BasicComponent } from './basic/basic.component';
+import { MapsComponent } from './maps/maps.component';
 
 const routes: Routes = [
   {
-    path: 'basic',
-    component: BasicComponent,
+    path: 'maps',
+    component: MapsComponent,
   }
 ];
 
 @NgModule({
   declarations: [
-    BasicComponent
+    MapsComponent
   ],
   imports: [
     CommonModule,
