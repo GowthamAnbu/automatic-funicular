@@ -10,7 +10,8 @@ import {
   QueryList,
   ViewChild,
   AfterViewInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChildren
 } from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
 import { TAGS } from '../../constants/constants';
@@ -34,7 +35,7 @@ export class PostFormComponent implements OnInit, AfterContentInit, AfterViewIni
   @Output()
   postSubmitted = new EventEmitter<Post>();
 
-  @ViewChild(SpecialMessangerComponent, { static: true }) messanger: SpecialMessangerComponent;
+  @ViewChildren(SpecialMessangerComponent) messanger: QueryList<SpecialMessangerComponent>;
 
   @ContentChild(ShowCreatorComponent, { static: false })
 
@@ -54,12 +55,16 @@ export class PostFormComponent implements OnInit, AfterContentInit, AfterViewIni
   ngAfterViewInit() {
     // console.log(this.messanger);
     /* change detector is one option and avoid using setTimeOut */
-    // this.messanger.message = 'create operation will take 60 minutes and then we will analyse and approve it :)';
-    // this.cd.detectChanges();
+    this.messanger.forEach((specialMessangerComponnet, index) => {
+      if (index === 0) {
+        specialMessangerComponnet.message = 'create operation will take 60 minutes and then we will analyse and approve it :)';
+      }
+    });
+    this.cd.detectChanges();
   }
 
   ngAfterContentInit() {
-    this.messanger.message = 'create operation will take 60 minutes and then we will analyse and approve it :)';
+    // this.messanger.message = 'create operation will take 60 minutes and then we will analyse and approve it :)';
     if (this.isImageClicked) {
       /* this.isImageClicked.forEach(
         showCreatorComponent => showCreatorComponent.clicked.subscribe((imageClick: boolean) => {
