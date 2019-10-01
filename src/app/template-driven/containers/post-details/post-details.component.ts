@@ -7,7 +7,15 @@ import { PostService } from '../../services/post.service';
 @Component({
   selector: 'app-post-details',
   template: `
-  <app-post-form [post]="post" [isCreateForm]="false" (postSubmitted)="update($event)"></app-post-form>
+  <app-post-form
+    [post]="post"
+    [isCreateForm]="false"
+    (postSubmitted)="update($event)">
+    <header>
+      <h3 class="header"> Edit Post</h3>
+    </header>
+  <button type="submit">Update</button>
+  </app-post-form>
   `,
   styles: [`
   `]

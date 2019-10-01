@@ -2,7 +2,10 @@
   <!-- {{ post | json }} -->
   <!-- {{ postForm.value | json}} -->
 <!-- </pre> -->
-<h1> {{isCreateForm ? 'Create' : 'Edit'}} Post</h1>
+<ng-content select="header"></ng-content>
+<!-- complex resusable version
+  <h1> {{isCreateForm ? 'Create' : 'Edit'}} Post</h1>
+-->
 <form (ngSubmit)="submit(postForm.value, postForm.valid)" #postForm="ngForm" novalidate>
   <!-- <pre>{{ postForm.value | json }}</pre> -->
   <div>
@@ -29,9 +32,14 @@
     <select name="tag" [ngModel]="post?.tag">
       <option *ngFor="let tag of tags" [ngValue]="tag.key" [innerText]="tag.value" required></option>
     </select>
-    <!-- <select name="tags">
-      <option *ngFor="let tag of tags" [value]="tag.key" [innerText]="tag.value" [selected]="tag.key === post?.tag" ></option>
-    </select> -->
+    <!-- Long Version
+      <select name="tags">
+        <option *ngFor="let tag of tags" [value]="tag.key" [innerText]="tag.value" [selected]="tag.key === post?.tag" ></option>
+      </select>
+    -->
   </div>
-  <button type="submit" [disabled]="postForm.invalid">{{isCreateForm ? 'Create' : 'Update'}}</button>
+  <ng-content select="button"></ng-content>
+  <!-- complex resusable version
+    <button type="submit" [disabled]="postForm.invalid">{{isCreateForm ? 'Create' : 'Update'}}</button>
+  -->
 </form>
