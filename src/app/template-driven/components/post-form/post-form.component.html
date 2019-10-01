@@ -3,6 +3,7 @@
   <!-- {{ postForm.value | json}} -->
 <!-- </pre> -->
 <ng-content select="header"></ng-content>
+<ng-content select="app-creator"></ng-content>
 <!-- complex resusable version
   <h1> {{isCreateForm ? 'Create' : 'Edit'}} Post</h1>
 -->
@@ -15,6 +16,9 @@
   <div>
     <label for="author">Author</label>
     <input type="text" [ngModel]="post?.author" name="author" #author="ngModel" required/>
+  </div>
+  <div *ngIf="showIdMessage">
+    id will be created automatically
   </div>
   <div *ngIf="!isCreateForm">
     <label for="id">Id</label>
