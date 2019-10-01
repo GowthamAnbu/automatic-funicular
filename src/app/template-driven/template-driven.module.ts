@@ -11,6 +11,8 @@ import { PostDetailsComponent } from './containers/post-details/post-details.com
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NoopInterceptor } from '../interceptors/noop-interceptor';
 import { PostCreateComponent } from './containers/post-create/post-create.component';
+import { ShowCreatorComponent } from './components/showCreator/show-creator.component';
+import { SpecialMessangerComponent } from './components/special-messanger/special-messanger';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { PostCreateComponent } from './containers/post-create/post-create.compon
     PostCountComponent,
     PostDashboardComponent,
     PostDetailsComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    ShowCreatorComponent,
+    SpecialMessangerComponent
   ],
   imports: [
     CommonModule,

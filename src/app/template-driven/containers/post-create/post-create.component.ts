@@ -6,22 +6,33 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-create',
   template: `
-  <p>
-    <app-post-form [post]="post" (postSubmitted)="submit($event)"></app-post-form>
-  </p>
+    <app-post-form
+      [post]="post"
+      (postSubmitted)="submit($event)"
+    >
+    <header>
+      <h1 class="header">Create Post</h1>
+    </header>
+    <button type="submit">Create</button>
+    <app-creator (clicked)="updatedAnalaysis($event)"></app-creator>
+    </app-post-form>
   `,
-  styles: [`
-
-  `]
+  styles: [``]
 })
 export class PostCreateComponent {
-
   post: Post;
+  bigDataAnalysisOfCreator: boolean;
 
-  constructor(private postService: PostService, private router: Router) {
+  constructor(private postService: PostService, private router: Router) {}
 
+  updatedAnalaysis(event: boolean) {
+    this.bigDataAnalysisOfCreator = event;
   }
+
   submit(newPost: Post) {
-    this.postService.createPost(newPost).subscribe(() => this.router.navigate(['/dashboard']));
+    console.log('create', this.bigDataAnalysisOfCreator);
+    this.postService
+      .createPost(newPost)
+      .subscribe(() => this.router.navigate(['/dashboard']));
   }
 }
