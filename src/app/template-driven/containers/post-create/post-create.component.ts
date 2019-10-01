@@ -15,8 +15,6 @@ import { Router } from '@angular/router';
     </header>
     <button type="submit">Create</button>
     <app-creator (clicked)="updatedAnalaysis($event)"></app-creator>
-    <app-creator (clicked)="updatedAnalaysis($event)"></app-creator>
-    <app-creator (clicked)="updatedAnalaysis($event)"></app-creator>
     </app-post-form>
   `,
   styles: [``]

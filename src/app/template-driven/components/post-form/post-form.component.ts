@@ -1,15 +1,28 @@
-import { Component, OnInit, Input, Output, EventEmitter, ContentChild, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ContentChild,
+  AfterContentInit,
+  ContentChildren,
+  QueryList,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
 import { TAGS } from '../../constants/constants';
 import { ShowCreatorComponent } from '../showCreator/show-creator.component';
+import { SpecialMessangerComponent } from '../special-messanger/special-messanger';
+
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
-  styles: [`
-  `]
+  styles: [``]
 })
-export class PostFormComponent implements OnInit, AfterContentInit {
-
+export class PostFormComponent implements OnInit, AfterContentInit, AfterViewInit {
   showIdMessage: boolean;
 
   @Input()
@@ -21,33 +34,50 @@ export class PostFormComponent implements OnInit, AfterContentInit {
   @Output()
   postSubmitted = new EventEmitter<Post>();
 
-  // @ContentChild
-  @ContentChildren(ShowCreatorComponent) isImageClicked: QueryList<ShowCreatorComponent>;
+  @ViewChild(SpecialMessangerComponent, { static: true }) messanger: SpecialMessangerComponent;
+
+  @ContentChild(ShowCreatorComponent, { static: false })
+
+  isImageClicked: ShowCreatorComponent;
+
   // local state based on business logic which is needed by dumb components
   tags = TAGS;
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  constructor(
+    private cd: ChangeDetectorRef
+  ) {
+
+  }
+
+  ngAfterViewInit() {
+    // console.log(this.messanger);
+    /* change detector is one option and avoid using setTimeOut */
+    // this.messanger.message = 'create operation will take 60 minutes and then we will analyse and approve it :)';
+    // this.cd.detectChanges();
   }
 
   ngAfterContentInit() {
+    this.messanger.message = 'create operation will take 60 minutes and then we will analyse and approve it :)';
     if (this.isImageClicked) {
-      this.isImageClicked.forEach(
+      /* this.isImageClicked.forEach(
         showCreatorComponent => showCreatorComponent.clicked.subscribe((imageClick: boolean) => {
           // console.log('inside form', imageClick);
            this.showIdMessage = imageClick;
         })
-      );
-      /* this.isImageClicked.clicked.subscribe((imageClick: boolean) => {
+      ); */
+      this.isImageClicked.clicked.subscribe((imageClick: boolean) => {
         // console.log('inside form', imageClick);
-         this.showIdMessage = imageClick;
-      }); */
+        this.showIdMessage = imageClick;
+      });
     }
   }
 
   submit(value: any, valid: boolean) {
     // console.log(value, valid);
     // if (valid) {
-      this.postSubmitted.emit(value);
+    this.postSubmitted.emit(value);
     // }
   }
 }

@@ -7,6 +7,7 @@
 <!-- complex resusable version
   <h1> {{isCreateForm ? 'Create' : 'Edit'}} Post</h1>
 -->
+<app-messanger></app-messanger>
 <form (ngSubmit)="submit(postForm.value, postForm.valid)" #postForm="ngForm" novalidate>
   <!-- <pre>{{ postForm.value | json }}</pre> -->
   <div>
