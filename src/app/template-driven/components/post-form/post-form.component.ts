@@ -11,7 +11,9 @@ import {
   ViewChild,
   AfterViewInit,
   ChangeDetectorRef,
-  ViewChildren
+  ViewChildren,
+  ElementRef,
+  Renderer2
 } from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
 import { TAGS } from '../../constants/constants';
@@ -37,7 +39,9 @@ export class PostFormComponent implements OnInit, AfterContentInit, AfterViewIni
 
   @ViewChildren(SpecialMessangerComponent) messanger: QueryList<SpecialMessangerComponent>;
 
-  @ContentChild(ShowCreatorComponent, { static: false })
+  @ContentChild(ShowCreatorComponent, { static: true })
+
+  @ViewChild('title', { read: ElementRef, static: true }) titleRef: ElementRef;
 
   isImageClicked: ShowCreatorComponent;
 
@@ -47,7 +51,8 @@ export class PostFormComponent implements OnInit, AfterContentInit, AfterViewIni
   ngOnInit() {}
 
   constructor(
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private renderer: Renderer2
   ) {
 
   }
@@ -61,6 +66,25 @@ export class PostFormComponent implements OnInit, AfterContentInit, AfterViewIni
       }
     });
     this.cd.detectChanges();
+    if (this.titleRef) {
+      this.renderer.setAttribute(this.titleRef.nativeElement, 'placeholder', 'renderer title goes here');
+      this.renderer.addClass(this.titleRef.nativeElement, 'title-renderer');
+      // ####################################################################################################
+      // ####################################################################################################
+      // ####################################################################################################
+      // ####################################################################################################
+      // ####################################################################################################
+      // #####=============>https://github.com/angular/angular/issues/15674<=============================#####
+      // ####################################################################################################
+      // ####################################################################################################
+      // ####################################################################################################
+      // ####################################################################################################
+      // ####################################################################################################
+      // improper way instead use renderer
+      // this.titleRef.nativeElement.setAttribute('placeholder', 'title goes here');
+      // this.titleRef.nativeElement.classList.add('title');
+      // this.titleRef.nativeElement.focus();
+    }
   }
 
   ngAfterContentInit() {
