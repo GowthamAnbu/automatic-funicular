@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ContentChild, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { Post } from 'src/app/template-driven/models/post';
 import { TAGS } from '../../constants/constants';
 import { ShowCreatorComponent } from '../showCreator/show-creator.component';
@@ -21,7 +21,8 @@ export class PostFormComponent implements OnInit, AfterContentInit {
   @Output()
   postSubmitted = new EventEmitter<Post>();
 
-  @ContentChild(ShowCreatorComponent, { static: false }) isImageClicked: ShowCreatorComponent;
+  // @ContentChild
+  @ContentChildren(ShowCreatorComponent) isImageClicked: QueryList<ShowCreatorComponent>;
   // local state based on business logic which is needed by dumb components
   tags = TAGS;
 
@@ -30,10 +31,16 @@ export class PostFormComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     if (this.isImageClicked) {
-      this.isImageClicked.clicked.subscribe((imageClick: boolean) => {
+      this.isImageClicked.forEach(
+        showCreatorComponent => showCreatorComponent.clicked.subscribe((imageClick: boolean) => {
+          // console.log('inside form', imageClick);
+           this.showIdMessage = imageClick;
+        })
+      );
+      /* this.isImageClicked.clicked.subscribe((imageClick: boolean) => {
         // console.log('inside form', imageClick);
          this.showIdMessage = imageClick;
-      });
+      }); */
     }
   }
 
