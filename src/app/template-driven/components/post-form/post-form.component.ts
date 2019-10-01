@@ -11,6 +11,9 @@ import { TAGS } from '../../constants/constants';
 export class PostFormComponent implements OnInit {
 
   @Input()
+  isCreateForm = true;
+
+  @Input()
   post: Post;
 
   @Output()
