@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-create',
   template: `
+    {{title}}
     <app-post-form
       [post]="post"
       (postSubmitted)="submit($event)"
@@ -22,6 +23,7 @@ import { Router } from '@angular/router';
 export class PostCreateComponent {
   post: Post;
   bigDataAnalysisOfCreator: boolean;
+  title = '<operation> will be created';
 
   constructor(private postService: PostService, private router: Router) {}
 
