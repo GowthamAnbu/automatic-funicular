@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Post } from 'src/app/template-driven/models/post';
 import { PostService } from '../../services/post.service';
-import { Router } from '@angular/router';
+import { PostCreateComponent } from '../post-create/post-create.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +16,8 @@ import { Router } from '@angular/router';
   <!--debug-->
   <app-post-count [posts]="posts"></app-post-count>
   <app-post *ngFor="let p of posts" [post]="p" (postDeleted)="delete($event)" (postupdated)="update($event)"></app-post>
+  <button mat-button (click)="toggleComponent()"> {{isDynamicFormCreated ? 'Destroy' : 'Create'}}</button>
+  <div #projectionPoint></div>
   `,
   styles: [`
   /* :host {
@@ -24,18 +28,45 @@ import { Router } from '@angular/router';
   } */
   `],
 })
-export class PostDashboardComponent implements OnInit {
+export class PostDashboardComponent implements OnInit, AfterContentInit {
 
+
+  isDynamicFormCreated = true;
+  postFormComponent: ComponentRef<PostCreateComponent>;
   posts: Post[];
+  @ViewChild('projectionPoint', { read: ViewContainerRef, static: true }) entry: ViewContainerRef;
 
   constructor(
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    private resolver: ComponentFactoryResolver
   ) {}
 
   ngOnInit(): void {
     this.postService.getPosts()
       .subscribe(p => this.posts = p);
+  }
+
+  createPostFormComponent() {
+    const componentFactory = this.resolver.resolveComponentFactory(PostCreateComponent);
+    this.postFormComponent = this.entry.createComponent(componentFactory);
+    // accessing dynamic component instance and updating properties without @input inside dynamic component.
+    this.postFormComponent.instance.title = 'Post will be created';
+  }
+
+  ngAfterContentInit() {
+    this.createPostFormComponent();
+  }
+
+  toggleComponent() {
+    // console.log(this.postFormComponent);
+    if (this.isDynamicFormCreated) {
+      this.isDynamicFormCreated = false;
+      this.postFormComponent.destroy();
+    } else {
+      this.isDynamicFormCreated = true;
+      this.createPostFormComponent();
+    }
   }
 
   delete(event: Post) {
