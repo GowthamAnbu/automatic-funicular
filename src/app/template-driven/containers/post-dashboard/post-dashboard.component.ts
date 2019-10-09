@@ -20,8 +20,9 @@ import { PostCreateComponent } from '../post-create/post-create.component';
   <div #projectionPoint>
   projected|injected content goes after this div
   </div>
-  <ng-template #that>
-    what is this ?
+  <ng-template #that let-imp let-ult="ultimate">
+  {{imp}} -> {{ult}}
+    inside ng-template
   </ng-template>
   `,
   styles: [`
@@ -64,7 +65,8 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
     // mocking move component
     // this.entry.createComponent(this.resolver.resolveComponentFactory(PostCreateComponent));
     // this.createPostFormComponent();
-    this.entry.createEmbeddedView(this.tmpl);
+    // in order to inject template into a host we need to use the createEmbeddedView
+    this.entry.createEmbeddedView(this.tmpl, { $implicit: 'implicit?' , ultimate: 'noww'});
   }
 
   toggleComponent() {
