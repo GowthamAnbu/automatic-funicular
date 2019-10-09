@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy,  ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver, ComponentRef, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Post } from 'src/app/template-driven/models/post';
@@ -17,7 +17,13 @@ import { PostCreateComponent } from '../post-create/post-create.component';
   <app-post-count [posts]="posts"></app-post-count>
   <app-post *ngFor="let p of posts" [post]="p" (postDeleted)="delete($event)" (postupdated)="update($event)"></app-post>
   <button mat-button (click)="toggleComponent()"> {{isDynamicFormCreated ? 'Destroy' : 'Create'}}</button>
-  <div #projectionPoint></div>
+  <div #projectionPoint>
+  projected|injected content goes after this div
+  </div>
+  <ng-template #that let-imp let-ult="ultimate">
+  {{imp}} -> {{ult}}
+    inside ng-template
+  </ng-template>
   `,
   styles: [`
   /* :host {
@@ -35,6 +41,7 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
   postFormComponent: ComponentRef<PostCreateComponent>;
   posts: Post[];
   @ViewChild('projectionPoint', { read: ViewContainerRef, static: true }) entry: ViewContainerRef;
+  @ViewChild('that', { static: true}) tmpl: TemplateRef<any>;
 
   constructor(
     private postService: PostService,
@@ -49,13 +56,17 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
 
   createPostFormComponent() {
     const componentFactory = this.resolver.resolveComponentFactory(PostCreateComponent);
-    this.postFormComponent = this.entry.createComponent(componentFactory);
+    this.postFormComponent = this.entry.createComponent(componentFactory, 0);
     // accessing dynamic component instance and updating properties without @input inside dynamic component.
     this.postFormComponent.instance.title = 'Post will be created';
   }
 
   ngAfterContentInit() {
-    this.createPostFormComponent();
+    // mocking move component
+    // this.entry.createComponent(this.resolver.resolveComponentFactory(PostCreateComponent));
+    // this.createPostFormComponent();
+    // in order to inject template into a host we need to use the createEmbeddedView
+    this.entry.createEmbeddedView(this.tmpl, { $implicit: 'implicit?' , ultimate: 'noww'});
   }
 
   toggleComponent() {
@@ -63,9 +74,12 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
     if (this.isDynamicFormCreated) {
       this.isDynamicFormCreated = false;
       this.postFormComponent.destroy();
+      // shouldn't move because component is destroyed
+      // this.entry.move(this.postFormComponent.hostView, 1);
     } else {
       this.isDynamicFormCreated = true;
       this.createPostFormComponent();
+      this.entry.move(this.postFormComponent.hostView, 1);
     }
   }
 
