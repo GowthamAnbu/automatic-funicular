@@ -1,4 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy,  ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver, ComponentRef, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+  ViewContainerRef,
+  AfterContentInit,
+  ComponentFactoryResolver,
+  ComponentRef,
+  TemplateRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Post } from 'src/app/template-driven/models/post';
@@ -8,40 +18,50 @@ import { PostCreateComponent } from '../post-create/post-create.component';
 @Component({
   selector: 'app-dashboard',
   template: `
-  <!--debug-->
-  <div *ngFor="let post of posts">
-    {{post.title}}
-  </div>
-  <button mat-mini-fab (click)="goto('/creat-post')"><mat-icon>add</mat-icon></button>
-  <!--debug-->
-  <app-post-count [posts]="posts"></app-post-count>
-  <app-post *ngFor="let p of posts" [post]="p" (postDeleted)="delete($event)" (postupdated)="update($event)"></app-post>
-  <button mat-button (click)="toggleComponent()"> {{isDynamicFormCreated ? 'Destroy' : 'Create'}}</button>
-  <div #projectionPoint>
-  projected|injected content goes after this div
-  </div>
-  <ng-template #that let-imp let-ult="ultimate">
-  {{imp}} -> {{ult}}
-    inside ng-template
-  </ng-template>
+    <!--debug-->
+    <div *ngFor="let post of posts">
+      {{ post.title }}
+    </div>
+    <button mat-mini-fab (click)="goto('/creat-post')">
+      <mat-icon>add</mat-icon>
+    </button>
+    <!--debug-->
+    <app-post-count [posts]="posts"></app-post-count>
+    <app-post
+      *ngFor="let p of posts"
+      [post]="p"
+      (postDeleted)="delete($event)"
+      (postupdated)="update($event)"
+    ></app-post>
+    <button mat-button (click)="toggleComponent()">
+      {{ isDynamicFormCreated ? 'Destroy' : 'Create' }}
+    </button>
+    <div #projectionPoint>
+      projected|injected content goes after this div
+    </div>
+    <ng-template #that let-imp let-ult="ultimate">
+      {{ imp }} -> {{ ult }}
+      inside ng-template
+    </ng-template>
   `,
-  styles: [`
-  /* :host {
+  styles: [
+    `
+      /* :host {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 100px;
     grid-column-gap: 100px;
   } */
-  `],
+    `
+  ]
 })
 export class PostDashboardComponent implements OnInit, AfterContentInit {
-
-
   isDynamicFormCreated = true;
   postFormComponent: ComponentRef<PostCreateComponent>;
   posts: Post[];
-  @ViewChild('projectionPoint', { read: ViewContainerRef, static: true }) entry: ViewContainerRef;
-  @ViewChild('that', { static: true}) tmpl: TemplateRef<any>;
+  @ViewChild('projectionPoint', { read: ViewContainerRef, static: true })
+  entry: ViewContainerRef;
+  @ViewChild('that', { static: true }) tmpl: TemplateRef<any>;
 
   constructor(
     private postService: PostService,
@@ -50,12 +70,13 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    this.postService.getPosts()
-      .subscribe(p => this.posts = p);
+    this.postService.getPosts().subscribe(p => (this.posts = p));
   }
 
   createPostFormComponent() {
-    const componentFactory = this.resolver.resolveComponentFactory(PostCreateComponent);
+    const componentFactory = this.resolver.resolveComponentFactory(
+      PostCreateComponent
+    );
     this.postFormComponent = this.entry.createComponent(componentFactory, 0);
     // accessing dynamic component instance and updating properties without @input inside dynamic component.
     this.postFormComponent.instance.title = 'Post will be created';
@@ -66,7 +87,10 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
     // this.entry.createComponent(this.resolver.resolveComponentFactory(PostCreateComponent));
     // this.createPostFormComponent();
     // in order to inject template into a host we need to use the createEmbeddedView
-    this.entry.createEmbeddedView(this.tmpl, { $implicit: 'implicit?' , ultimate: 'noww'});
+    this.entry.createEmbeddedView(this.tmpl, {
+      $implicit: 'implicit?',
+      ultimate: 'noww'
+    });
   }
 
   toggleComponent() {
@@ -84,16 +108,18 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
   }
 
   delete(event: Post) {
-    this.postService.deletePosts(event.id)
-      .subscribe(() => this.posts = this.posts.filter(p => p.id !== event.id));
+    this.postService
+      .deletePosts(event.id)
+      .subscribe(
+        () => (this.posts = this.posts.filter(p => p.id !== event.id))
+      );
   }
 
   update(event: Post) {
-    this.postService.updatePosts(event)
-    .subscribe((updatedPost) => {
+    this.postService.updatePosts(event).subscribe(updatedPost => {
       this.posts = this.posts.map(post => {
         if (post.id === updatedPost.id) {
-          post = { ... updatedPost};
+          post = { ...updatedPost };
         }
         return post;
       });
@@ -103,5 +129,4 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
   goto(path: string) {
     this.router.navigate([path]);
   }
-
 }
