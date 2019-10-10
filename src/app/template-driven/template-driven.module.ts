@@ -13,6 +13,7 @@ import { NoopInterceptor } from '../interceptors/noop-interceptor';
 import { PostCreateComponent } from './containers/post-create/post-create.component';
 import { ShowCreatorComponent } from './components/showCreator/show-creator.component';
 import { SpecialMessangerComponent } from './components/special-messanger/special-messanger';
+import { SpecialDirective } from './directives/special-title.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SpecialMessangerComponent } from './components/special-messanger/specia
     PostDetailsComponent,
     PostCreateComponent,
     ShowCreatorComponent,
-    SpecialMessangerComponent
+    SpecialMessangerComponent,
+    SpecialDirective
   ],
   imports: [
     CommonModule,

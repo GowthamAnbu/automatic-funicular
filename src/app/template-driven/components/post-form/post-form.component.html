@@ -14,7 +14,7 @@
   <!-- <pre>{{ postForm.value | json }}</pre> -->
   <div>
     <label for="title">Title</label>
-    <input type="text" [ngModel]="post?.title" name="title" #title="ngModel" required/>
+    <input type="text" [ngModel]="post?.title" name="title" #title="ngModel" required appSpecialTitleDirective/>
   </div>
   <div>
     <label for="author">Author</label>
