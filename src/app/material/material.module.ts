@@ -88,7 +88,7 @@ const materialModule = [
 ];
 /**
  * NgModule that includes all Material modules.
-*/
+ */
 @NgModule({
   exports: [
     // CDK
