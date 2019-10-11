@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { Post } from 'src/app/template-driven/models/post';
 import { PostService } from '../../services/post.service';
 import { PostCreateComponent } from '../post-create/post-create.component';
+import { TrivialPipe } from '../../directives/trivial.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,8 +24,11 @@ import { PostCreateComponent } from '../post-create/post-create.component';
     <!--<div *appTemplateFor="let post of posts">
       {{ post.title }}
     </div>-->
-    <div *ngFor="let post of posts">
+    <!--<div *ngFor="let post of mappedPosts">
       {{ post.title }}
+    </div>-->
+    <div *ngFor="let post of posts">
+      {{ post.title | trivial: '?'}}
     </div>
     <button mat-mini-fab (click)="goto('/creat-post')">
       <mat-icon>add</mat-icon>
@@ -64,12 +68,14 @@ import { PostCreateComponent } from '../post-create/post-create.component';
     grid-column-gap: 100px;
   } */
     `
-  ]
+  ],
+  providers: [ TrivialPipe ]
 })
 export class PostDashboardComponent implements OnInit, AfterContentInit {
   isDynamicFormCreated = true;
   postFormComponent: ComponentRef<PostCreateComponent>;
   posts: Post[];
+  mappedPosts: Post[];
   @ViewChild('projectionPoint', { read: ViewContainerRef, static: true })
   entry: ViewContainerRef;
   @ViewChild('that', { static: true }) tmpl: TemplateRef<any>;
@@ -77,11 +83,17 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
   constructor(
     private postService: PostService,
     private router: Router,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private trivialPipe: TrivialPipe
   ) {}
 
   ngOnInit(): void {
-    this.postService.getPosts().subscribe(p => (this.posts = p));
+    this.postService.getPosts().subscribe(p => {
+      this.posts = p;
+      /* this.mappedPosts = this.posts.map(post => {
+        return {...post, title: this.trivialPipe.transform(post.title)};
+      }); */
+    });
     // mocking test value to clear the viewcontainer
     /* setTimeout(() => {
       this.posts = [...this.posts, {
