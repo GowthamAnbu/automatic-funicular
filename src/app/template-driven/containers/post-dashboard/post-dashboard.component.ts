@@ -19,6 +19,10 @@ import { PostCreateComponent } from '../post-create/post-create.component';
   selector: 'app-dashboard',
   template: `
     <!--debug-->
+    <!-- mocking structural-->
+    <!--<div *appTemplateFor="let post of posts">
+      {{ post.title }}
+    </div>-->
     <div *ngFor="let post of posts">
       {{ post.title }}
     </div>
@@ -27,6 +31,13 @@ import { PostCreateComponent } from '../post-create/post-create.component';
     </button>
     <!--debug-->
     <app-post-count [posts]="posts"></app-post-count>
+    <!-- super Cool mock :)-->
+    <!--<app-post
+      *appTemplateFor="let p of posts"
+      [post]="p"
+      (postDeleted)="delete($event)"
+      (postupdated)="update($event)"
+    ></app-post>-->
     <app-post
       *ngFor="let p of posts"
       [post]="p"
@@ -71,6 +82,16 @@ export class PostDashboardComponent implements OnInit, AfterContentInit {
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe(p => (this.posts = p));
+    // mocking test value to clear the viewcontainer
+    /* setTimeout(() => {
+      this.posts = [...this.posts, {
+        id: 5,
+        title: 'Test',
+        author: 'Test',
+        gender: 'Test',
+        tag: 3
+      }];
+    }, 5000); */
   }
 
   createPostFormComponent() {

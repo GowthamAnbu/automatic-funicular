@@ -14,7 +14,7 @@ import { PostCreateComponent } from './containers/post-create/post-create.compon
 import { ShowCreatorComponent } from './components/showCreator/show-creator.component';
 import { SpecialMessangerComponent } from './components/special-messanger/special-messanger';
 import { SpecialDirective } from './directives/special-title.directive';
-
+import { TemplateForDirective } from './directives/templateFor.directive';
 @NgModule({
   declarations: [
     PostsComponent,
@@ -25,7 +25,8 @@ import { SpecialDirective } from './directives/special-title.directive';
     PostCreateComponent,
     ShowCreatorComponent,
     SpecialMessangerComponent,
-    SpecialDirective
+    SpecialDirective,
+    TemplateForDirective
   ],
   imports: [
     CommonModule,
