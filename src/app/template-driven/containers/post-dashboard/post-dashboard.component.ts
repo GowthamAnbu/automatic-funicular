@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { Post } from 'src/app/template-driven/models/post';
 import { PostService } from '../../services/post.service';
 import { PostCreateComponent } from '../post-create/post-create.component';
-import { TrivialPipe } from '../../directives/trivial.pipe';
+import { TrivialPipe } from '../../pipes/trivial.pipe';
 
 @Component({
   selector: 'app-dashboard',

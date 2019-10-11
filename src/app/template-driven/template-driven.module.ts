@@ -15,7 +15,7 @@ import { ShowCreatorComponent } from './components/showCreator/show-creator.comp
 import { SpecialMessangerComponent } from './components/special-messanger/special-messanger';
 import { SpecialDirective } from './directives/special-title.directive';
 import { TemplateForDirective } from './directives/templateFor.directive';
-import { TrivialPipe } from './directives/trivial.pipe';
+import { TrivialPipe } from './pipes/trivial.pipe';
 @NgModule({
   declarations: [
     PostsComponent,
